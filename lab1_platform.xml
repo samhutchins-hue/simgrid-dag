@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<platform version="4.1">
+  <zone id="AS0" routing="Full">
+    <!-- Define hosts (use 'f' for FLOPS) -->
+    <host id="Host1" speed="1.0e9f" core="1"/>
+    <host id="Host2" speed="1.0e9f" core="2"/>
+    <host id="Host3" speed="1.0e9f" core="1"/>
+
+    <!-- Define network links (use 'Bps' for bandwidth, 's' for latency) -->
+    <link id="link1" bandwidth="1.0e9Bps" latency="1.0e-2s"/>
+    <link id="link2" bandwidth="1.0e9Bps" latency="1.0e-2s"/>
+
+    <!-- Define routes between hosts -->
+    <route src="Host1" dst="Host2">
+      <link_ctn id="link1"/>
+    </route>
+    <route src="Host2" dst="Host3">
+      <link_ctn id="link2"/>
+    </route>
+  </zone>
+</platform>
