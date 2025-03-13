@@ -5,43 +5,42 @@
 XBT_LOG_NEW_DEFAULT_CATEGORY(pipeline_dag, "Pipeline DAG simulation");
 
 int main(int argc, char *argv[]) {
-  // Initialize engine and load platform from XML file (e.g., platform.xml)
+  // Initialize engine and load platform from XML file
   simgrid::s4u::Engine e(&argc, argv);
   e.load_platform(argv[1]);
 
-  // Retrieve hosts from the platform; ensure these hosts are defined in your
-  // XML file.
+  // Retrieve hosts from the platform
   simgrid::s4u::Host *host1 = e.host_by_name("Host1");
   simgrid::s4u::Host *host2 = e.host_by_name("Host2");
   simgrid::s4u::Host *host3 = e.host_by_name("Host3");
 
-  // --- Stage 1: Initial processing ---
+  // Stage 1: Initial processing ---
   simgrid::s4u::ExecPtr stage1 = simgrid::s4u::Exec::init();
   stage1->set_name("Stage1");
   stage1->set_flops_amount(1e9); // Example computation cost
   stage1->set_host(host1);
 
-  // --- Communication from Stage 1 to Stage 2 ---
+  // Communication from Stage 1 to Stage 2
   simgrid::s4u::CommPtr comm1 = simgrid::s4u::Comm::sendto_init();
   comm1->set_name("Comm1");
   comm1->set_payload_size(1e8); // Example payload size
   comm1->set_source(host1);
   comm1->set_destination(host2);
 
-  // --- Stage 2: Intermediate processing ---
+  // Stage 2: Intermediate processing
   simgrid::s4u::ExecPtr stage2 = simgrid::s4u::Exec::init();
   stage2->set_name("Stage2");
   stage2->set_flops_amount(2e9);
   stage2->set_host(host2);
 
-  // --- Communication from Stage 2 to Stage 3 ---
+  // Communication from Stage 2 to Stage 3
   simgrid::s4u::CommPtr comm2 = simgrid::s4u::Comm::sendto_init();
   comm2->set_name("Comm2");
   comm2->set_payload_size(1e8);
   comm2->set_source(host2);
   comm2->set_destination(host3);
 
-  // --- Stage 3: Final processing ---
+  // Stage 3: Final processing
   simgrid::s4u::ExecPtr stage3 = simgrid::s4u::Exec::init();
   stage3->set_name("Stage3");
   stage3->set_flops_amount(1.5e9);
