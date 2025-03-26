@@ -117,10 +117,10 @@ int main(int argc, char **argv) {
   e.load_platform("platform.xml");
 
   // Create actors
-  sg4::Actor::create("Source", e.host_by_name("Host1"), source_actor);
-  sg4::Actor::create("Stage1", e.host_by_name("Host1"), stage1_worker);
-  sg4::Actor::create("Stage2", e.host_by_name("Host1"), stage2_worker);
-  sg4::Actor::create("Stage3", e.host_by_name("Host1"), stage3_worker);
+  e.add_actor("Source", e.host_by_name("Host1"), source_actor);
+  e.add_actor("Stage1", e.host_by_name("Host1"), stage1_worker);
+  e.add_actor("Stage2", e.host_by_name("Host1"), stage2_worker);
+  e.add_actor("Stage3", e.host_by_name("Host1"), stage3_worker);
 
   e.run();
   return 0;
